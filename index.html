@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tahap Perasaan Murid</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#F0D9AF;
+text-align:center;
+padding:40px;
+}
+
+.container{
+
+max-width:700px;
+margin:auto;
+
+background:#F7EFDC;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+h2{
+
+color:#6B4F2A;
+
+}
+
+input[type="range"]{
+
+width:80%;
+
+margin-top:25px;
+
+}
+
+.emoji{
+
+font-size:70px;
+
+margin-top:20px;
+
+transition:0.3s;
+
+}
+
+.message{
+
+margin-top:20px;
+
+font-size:20px;
+
+font-weight:bold;
+
+color:#6B4F2A;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📚 Saya Tidak Menyiapkan Kerja Rumah</h2>
+
+<p>Pilih tahap perasaan anda.</p>
+
+<input type="range"
+id="mood"
+min="1"
+max="5"
+value="3">
+
+<div class="emoji" id="emoji">
+
+😐
+
+</div>
+
+<div class="message" id="message">
+
+Saya berasa bimbang.
+
+</div>
+
+</div>
+
+<script>
+
+const slider =
+document.getElementById("mood");
+
+const emoji =
+document.getElementById("emoji");
+
+const message =
+document.getElementById("message");
+
+slider.oninput=function(){
+
+switch(this.value){
+
+case "1":
+
+emoji.innerHTML="😄";
+
+message.innerHTML=
+"Saya tidak begitu risau.";
+
+break;
+
+case "2":
+
+emoji.innerHTML="🙂";
+
+message.innerHTML=
+"Saya sedikit risau.";
+
+break;
+
+case "3":
+
+emoji.innerHTML="😐";
+
+message.innerHTML=
+"Saya berasa bimbang.";
+
+break;
+
+case "4":
+
+emoji.innerHTML="😟";
+
+message.innerHTML=
+"Saya sangat risau kerana tidak menyiapkan tugasan.";
+
+break;
+
+case "5":
+
+emoji.innerHTML="😢";
+
+message.innerHTML=
+"Saya menyesal dan berazam untuk lebih bertanggungjawab.";
+
+break;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
