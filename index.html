@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi Wira Sekolah: Skuad Tanggungjawab!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef2f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .game-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        h3 { color: #7f8c8d; margin-top: 0; }
+        p { color: #34495e; font-size: 1.1em; line-height: 1.5; }
+        .btn {
+            display: block;
+            width: 100%;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        .btn:hover { background: #2980b9; transform: translateY(-2px); }
+        .btn-wrong { background: #e74c3c; }
+        .btn-wrong:hover { background: #c0392b; }
+        .btn-back { background: #2ecc71; }
+        .btn-back:hover { background: #27ae60; }
+        .hidden { display: none; }
+        .icon { font-size: 3em; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <!-- HALAMAN 1: LAMAN UTAMA -->
+    <div id="page1">
+        <div class="icon">🎒</div>
+        <h1>Misi Wira Sekolah</h1>
+        <h3>Skuad Tanggungjawab!</h3>
+        <p>Adakah anda bersedia untuk menguji tahap tanggungjawab anda sebagai seorang murid hari ini?</p>
+        <button class="btn" onclick="startInterface()">MULA MAIN</button>
+        <a href="https://kemahiran-belajar.my.canva.site/pendidikan-moral-tahun-3" target="_blank" class="btn btn-back">KEMBALI KE CANVA</a>
+    </div>
+
+    <!-- SITUASI 1 -->
+    <div id="sit1" class="hidden">
+        <h2>📍 Misi 1: Di Dalam Kelas</h2>
+        <p>Jam menunjukkan pukul 1:15 tengah hari dan loceng pulang telah berbunyi. Anda ternampak sampah sarat di bawah meja sendiri dan papan putih belum dipadam. Apa tindakan anda?</p>
+        <button class="btn" onclick="showCorrect(2)">A. Kutip sampah dan padam papan putih dahulu sebelum pulang.</button>
+        <button class="btn" onclick="showIncorrect('sit1')">B. Terus lari keluar kelas sebab takut terlepas bas sekolah.</button>
+    </div>
+
+    <!-- SITUASI 2 (BARU) -->
+    <div id="sit2" class="hidden">
+        <h2>📍 Misi 2: Di Tandas Sekolah</h2>
+        <p>Selepas menggunakan tandas sekolah, anda dapati tiada air keluar daripada pam selepas ditekan. Namun, terdapat sebaldi air dan gayung di tepi dinding. Apakah tindakan yang bertanggungjawab?</p>
+        <button class="btn" onclick="showCorrect(3)">A. Menggunakan air di dalam baldi untuk jirus sehingga bersih.</button>
+        <button class="btn" onclick="showIncorrect('sit2')">B. Keluar begitu sahaja kerana menganggap itu masalah pihak sekolah.</button>
+    </div>
+
+    <!-- SITUASI 3 -->
+    <div id="sit3" class="hidden">
+        <h2>📍 Misi 3: Di Perpustakaan</h2>
+        <p>Anda sedang membaca buku di perpustakaan. Tiba-tiba, sekumpulan rakan anda mula bersembang dan bergelak ketawa dengan kuat sehingga mengganggu murid lain. Apakah tanggungjawab anda?</p>
+        <button class="btn" onclick="showCorrect(4)">A. Tegur rakan dengan sopan atau maklumkan kepada pengawas perpustakaan.</button>
+        <button class="btn" onclick="showIncorrect('sit3')">B. Biarkan sahaja dan ikut mereka bersembang sekali.</button>
+    </div>
+
+    <!-- SITUASI 4 (BARU) -->
+    <div id="sit4" class="hidden">
+        <h2>📍 Misi 4: Di Dataran Perhimpunan</h2>
+        <p>Semasa waktu rehat, anda ternampak seorang murid tahun satu menangis kerana duit sakunya tercicir dan dia kelaparan. Apakah tindakan anda?</p>
+        <button class="btn" onclick="showCorrect('end')">A. Bawa dia berjumpa guru bertugas atau berkongsi sedikit makanan dengan ikhlas.</button>
+        <button class="btn" onclick="showIncorrect('sit4')">B. Buat tidak tahu sahaja kerana waktu rehat sudah hampir tamat.</button>
+    </div>
+
+    <!-- HALAMAN MAKLUM BALAS: BETUL -->
+    <div id="correctPage" class="hidden">
+        <div class="icon" style="color: #2ecc71;">✅</div>
+        <h2>TAHNIAH! JAWAPAN TEPAT!</h2>
+        <p id="correctText">Tindakan yang sangat bertanggungjawab!</p>
+        <button id="nextBtn" class="btn">MISI SETERUSNYA</button>
+    </div>
+
+    <!-- HALAMAN MAKLUM BALAS: SALAH -->
+    <div id="incorrectPage" class="hidden">
+        <div class="icon" style="color: #e74c3c;">❌</div>
+        <h2>ADUH, KURANG TEPAT...</h2>
+        <p>Sebagai murid, kita perlulah sentiasa mengutamakan disiplin, kebersihan, dan kebajikan warga sekolah.</p>
+        <button id="retryBtn" class="btn btn-wrong">CUBA LAGI</button>
+    </div>
+
+    <!-- HALAMAN TAMAT -->
+    <div id="endPage" class="hidden">
+        <div class="icon" style="color: #f1c40f;">🎉</div>
+        <h2>SYABAS, WIRA SEKOLAH!</h2>
+        <p>Anda telah berjaya menyelesaikan semua misi dengan membuat keputusan yang bertanggungjawab. Teruskan sikap terpuji ini dalam kehidupan seharian!</p>
+        <button class="btn" onclick="resetGame()">MAIN SEMULA</button>
+        <a href="https://kemahiran-belajar.my.canva.site/pendidikan-moral-tahun-3" target="_blank" class="btn btn-back">KEMBALI KE CANVA</a>
+    </div>
+</div>
+
+<script>
+    let currentRetryPage = '';
+
+    function hideAll() {
+        const ids = ['page1', 'sit1', 'sit2', 'sit3', 'sit4', 'correctPage', 'incorrectPage', 'endPage'];
+        ids.forEach(id => {
+            document.getElementById(id).classList.add('hidden');
+        });
+    }
+
+    function startInterface() {
+        hideAll();
+        document.getElementById('sit1').classList.remove('hidden');
+    }
+
+    function showCorrect(nextStep) {
+        hideAll();
+        const correctPage = document.getElementById('correctPage');
+        const nextBtn = document.getElementById('nextBtn');
+        const text = document.getElementById('correctText');
+        
+        if(nextStep === 2) {
+            text.innerText = "Sikap yang bagus! Kelas yang bersih menjadikan suasana belajar lebih selesa.";
+            nextBtn.onclick = function() { hideAll(); document.getElementById('sit2').classList.remove('hidden'); };
+        } else if(nextStep === 3) {
+            text.innerText = "Hebat! Menjaga kebersihan tandas adalah tanggungjawab bersama demi keselesaan semua.";
+            nextBtn.onclick = function() { hideAll(); document.getElementById('sit3').classList.remove('hidden'); };
+        } else if(nextStep === 4) {
+            text.innerText = "Terbaik! Perpustakaan ialah zon senyap untuk menghormati orang lain yang ingin belajar.";
+            nextBtn.onclick = function() { hideAll(); document.getElementById('sit4').classList.remove('hidden'); };
+        } else if(nextStep === 'end') {
+            text.innerText = "Murni sungguh hati anda! Membantu warga sekolah yang dalam kesusahan ialah tanda murid prihatin.";
+            nextBtn.onclick = function() { hideAll(); document.getElementById('endPage').classList.remove('hidden'); };
+        }
+        
+        correctPage.classList.remove('hidden');
+    }
+
+    function showIncorrect(fromPage) {
+        hideAll();
+        currentRetryPage = fromPage;
+        const incorrectPage = document.getElementById('incorrectPage');
+        const retryBtn = document.getElementById('retryBtn');
+        
+        retryBtn.onclick = function() {
+            hideAll();
+            document.getElementById(currentRetryPage).classList.remove('hidden');
+        };
+        
+        incorrectPage.classList.remove('hidden');
+    }
+
+    function resetGame() {
+        hideAll();
+        document.getElementById('page1').classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
